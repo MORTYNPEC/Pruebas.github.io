@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Car</title>
+
+  <!-- CDN Bootstrap -->
+  <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+    rel="stylesheet" 
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" 
+    crossorigin="anonymous"
+  >
+
+  <!-- Archivo de estilos personalizados -->
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Estilos personalizados para suavizar la tabla */
+    table {
+      border-collapse: collapse; /* Elimina las líneas internas */
+      width: 100%;
+    }
+
+    th, td {
+      text-align: center;
+      padding: 12px;
+      vertical-align: middle;
+    }
+
+    th {
+      background-color: #f8f9fa; /* Fondo claro para el encabezado */
+      color: #333;
+      font-weight: bold;
+    }
+
+    td {
+      background-color: #fff;
+    }
+
+    /* Solo mostrar los bordes exteriores */
+    table, th, td {
+      border: 2px solid #ddd; /* Bordes exteriores visibles */
+    }
+
+    /* Eliminar bordes internos de las celdas */
+    td, th {
+      border: none; /* Eliminar bordes internos */
+    }
+
+    /* Sombra suave para las filas de la tabla */
+    tr:nth-child(even) {
+      background-color: #f9f9f9; /* Filas alternas con fondo gris claro */
+    }
+
+    tr:hover {
+      background-color: #f1f1f1; /* Efecto hover para mejorar la visibilidad */
+    }
+
+    /* Quitar los bordes visibles de las celdas */
+    td img {
+      max-width: 80px;
+      max-height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    /* Estilo para el título "My Car" en rojo y tamaño más pequeño */
+    h1 {
+      color: red; /* Cambiar el color del título a rojo */
+      font-family: 'Tangerine', cursive;
+      font-size: 24px; /* Tamaño de fuente más pequeño */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Menú de navegación -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <div class="container">
+      <div class="navbar-brand d-flex align-items-center" style="cursor: default;">
+        <img src="./logo.png" alt="Logo" style="height: 40px; margin-right: 8px;">
+        <span class="tangerine-bold">The Store</span>
+      </div>
+      <button 
+        class="navbar-toggler" 
+        type="button" 
+        data-bs-toggle="collapse" 
+        data-bs-target="#navbarNav" 
+        aria-controls="navbarNav" 
+        aria-expanded="false" 
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="newProduct.html">Create</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="car.html">Car</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container pt-4">
+    <!-- Tabla simple para los productos en el carrito -->
+    <table>
+      <thead>
+        <tr>
+          <th colspan="5">
+            <!-- Título "My Car" dentro del contenedor -->
+            <h1 class="tangerine-bold text-center">My Car</h1>
+          </th>
+        </tr>
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody id="product-list">
+        <!-- Los productos se agregarán aquí dinámicamente -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Script para manejar los productos dinámicamente -->
+  <script src="arreglo_productos.js"></script>
+  <script>
+    const productList = document.getElementById("product-list");
+
+    // Función para generar la vista de los productos en el carrito
+    function displayProducts(products) {
+      productList.innerHTML = ''; // Limpiar la lista de productos
+      products.forEach(product => {
+        const total = product.price * product.inventory;
+        const productRow = `
+          <tr>
+            <td><img src="${product.image}" alt="${product.name}"></td>
+            <td>${product.name}</td>
+            <td>$${product.price}</td>
+            <td>${product.inventory}</td>
+            <td>$${total}</td>
+          </tr>
+        `;
+        productList.innerHTML += productRow;
+      });
+    }
+
+    // Esperar que el archivo de productos esté cargado
+    if (typeof arreglo_productos !== 'undefined') {
+      displayProducts(arreglo_productos);
+    } else {
+      console.error('arreglo_productos no está definido');
+    }
+  </script>
+
+  <script 
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" 
+    crossorigin="anonymous">
+  </script>
+</body>
+</html>
