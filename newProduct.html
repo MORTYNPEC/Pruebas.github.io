@@ -101,6 +101,9 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="./newProduct.html">Create</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="car.html">Car</a> <!-- Nuevo ítem -->
+          </li>
         </ul>
       </div>
     </div>
@@ -142,24 +145,42 @@
     crossorigin="anonymous">
   </script>
 
-  <script>
-    // Validación personalizada para mostrar los mensajes solo cuando se hace clic en "Guardar"
-    document.getElementById("form").addEventListener("submit", function(event) {
-      let valid = true; // Suponemos que el formulario es válido
-      const inputs = document.querySelectorAll('.form-control'); // Todos los campos del formulario
-      inputs.forEach(function(input) {
-        if (!input.value.trim()) { // Si el campo está vacío
-          valid = false;
-          input.classList.add("show-error"); // Añadir la clase para mostrar el mensaje de error
-        } else {
-          input.classList.remove("show-error"); // Eliminar la clase si el campo tiene valor
-        }
-      });
-      
-      if (!valid) {
-        event.preventDefault(); // Evitar el envío del formulario si hay campos vacíos
+<script>
+  // Validación personalizada para mostrar los mensajes solo cuando se hace clic en "Guardar"
+  document.getElementById("form").addEventListener("submit", function (event) {
+    let valid = true; // Suponemos que el formulario es válido
+    const inputs = document.querySelectorAll('.form-control'); // Todos los campos del formulario
+
+    inputs.forEach(function (input) {
+      if (!input.value.trim()) { // Si el campo está vacío
+        valid = false;
+        input.classList.add("show-error"); // Añadir la clase para mostrar el mensaje de error
+      } else {
+        input.classList.remove("show-error"); // Eliminar la clase si el campo tiene valor
       }
     });
-  </script>
+
+    if (!valid) {
+      event.preventDefault(); // Evitar el envío del formulario si hay campos vacíos
+    } else {
+      event.preventDefault(); // Prevenir el envío real para demostrar el comportamiento
+
+      // Limpiar el formulario de inmediato
+      document.getElementById("form").reset();
+
+      // Mostrar mensaje de éxito
+      const successMessage = document.createElement("div");
+      successMessage.className = "alert alert-success mt-3";
+      successMessage.innerText = "¡Creado con éxito!";
+      document.querySelector(".form-container").appendChild(successMessage);
+
+      // Eliminar el mensaje después de 2 segundos
+      setTimeout(() => {
+        successMessage.remove(); // Eliminar el mensaje
+      }, 2000); // 2 segundos
+    }
+  });
+</script>
+
 </body>
 </html>
